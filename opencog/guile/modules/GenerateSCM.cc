@@ -20,7 +20,7 @@
  */
 
 #include <opencog/atoms/core/NumberNode.h>
-#include <opencog/atoms/core/StateLink.h>
+#include <opencog/atoms/grant/StateLink.h>
 #include <opencog/guile/SchemeModule.h>
 #include <opencog/guile/SchemePrimitive.h>
 
