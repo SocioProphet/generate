@@ -1,6 +1,6 @@
 # Finite Yang-Mills Bridge Experiment
 
-This experiment starts a bounded Yang-Mills research lane inside `SocioProphet/generate` because this repository already frames proof search, constraint assembly, sheaf-like gluing, and graph generation as one family of problems. The long-term target can still become a dedicated repository. The current seed is deliberately narrow: finite SU(2) representation fixtures, character identities, cutoff discipline, and transfer-operator preparation.
+This experiment starts a bounded Yang-Mills research lane inside `SocioProphet/generate` because this repository already frames proof search, constraint assembly, sheaf-like gluing, and graph generation as one family of problems. The long-term target can still become a dedicated repository. The current seed is deliberately narrow: finite SU(2) representation fixtures, character identities, finite lattice orientation objects, cutoff discipline, and transfer-operator preparation.
 
 This is not a proof of Yang-Mills existence or the mass gap. It is a finite-cutoff workbench for building verified objects that could later support a serious proof program.
 
@@ -13,6 +13,8 @@ Allowed claims:
 - Clebsch-Gordan support checks;
 - character-product identities;
 - Haar-class orthogonality fixtures;
+- finite lattice vertex, edge, path, and plaquette orientation fixtures;
+- symbolic gauge-transformation shape fixtures;
 - truncated fusion and transfer-operator scaffolding.
 
 Forbidden claims without separate proof:
@@ -20,7 +22,8 @@ Forbidden claims without separate proof:
 - continuum Yang-Mills existence;
 - Clay mass-gap resolution;
 - numerical gap evidence presented as proof;
-- continuum extrapolation without a limiting theorem.
+- continuum extrapolation without a limiting theorem;
+- gauge invariance proofs before group-valued links and vertex transforms are implemented.
 
 ## Operating discipline
 
@@ -38,12 +41,15 @@ The acceptance pattern is witness and withoutness. Each result needs an internal
 experiments/yang-mills-finite-bridge/
   docs/
     catalog-of-objects.md
+    lattice-data-model.md
     proof-discipline.md
     roadmap.md
   src/ym_finite_bridge/
     __init__.py
+    lattice.py
     su2.py
   tests/
+    test_lattice.py
     test_su2.py
   pyproject.toml
 ```
@@ -68,3 +74,16 @@ The first object set is SU(2) by doubled spin label `two_j = 2j`.
 - tensor-product support: `|a-b|, |a-b|+2, ..., a+b`.
 
 This gives us deterministic, checkable pieces before any lattice action, transfer matrix, or continuum-limit language is introduced.
+
+## Second mathematical object set
+
+The second object set is the finite lattice orientation layer.
+
+- vertex: tuple of integers;
+- oriented edge: directed view of an undirected edge;
+- path: adjacency-validated sequence of oriented edges;
+- plaquette: closed finite boundary path;
+- finite lattice: undirected finite graph with oriented edge views;
+- symbolic gauge transform signature: `U[source,target] -> g[source] U[source,target] g[target]^-1`.
+
+This gives us edge orientation, closed-loop, serialization, and rejection fixtures before any group-valued link variables are attached.
