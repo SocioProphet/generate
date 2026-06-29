@@ -22,6 +22,8 @@
 #ifndef _OPENCOG_SIMPLE_CALLBACK_H
 #define _OPENCOG_SIMPLE_CALLBACK_H
 
+#include <opencog/util/Counter.h>
+
 #include <opencog/generate/CollectStyle.h>
 #include <opencog/generate/Dictionary.h>
 #include <opencog/generate/GenerateCallback.h>
@@ -32,6 +34,9 @@ namespace opencog
 /** \addtogroup grp_generate
  *  @{
  */
+
+//! a map from handle to unsigned
+typedef Counter<Handle, unsigned> HandleUCounter;
 
 /// Callback to provide sections (aka "puzzle pieces") to extend the
 /// current assembly. The current implementation here is deterministic,
@@ -61,7 +66,7 @@ private:
 
 	// -------------------------------------------
 	// Lexical selection
-	Handle select_from_lexis(const Frame&,
+	Handle select_from_lexis(const OdoFrame&,
 	                         const Handle&, size_t,
 	                         const Handle&);
 
@@ -74,7 +79,7 @@ private:
 	std::stack<HandleUCounter> _lexlit_stack;
 
 	// -------------------------------------------
-	Handle select_from_open(const Frame&,
+	Handle select_from_open(const OdoFrame&,
 	                        const Handle&, size_t,
 	                        const Handle&);
 	Handle check_self(const HandleSeq&, const Handle&,
@@ -97,7 +102,7 @@ public:
 	virtual ~SimpleCallback();
 
 	virtual void clear(AtomSpace*);
-	virtual bool step(const Frame&);
+	virtual bool step(const OdoFrame&);
 	virtual HandleSeq joints(const Handle& con) {
 		return _dict.joints(con);
 	}
@@ -105,7 +110,7 @@ public:
 	virtual void root_set(const HandleSet&);
 	virtual HandleSet next_root(void);
 
-	virtual Handle select(const Frame&,
+	virtual Handle select(const OdoFrame&,
 	                      const Handle&, size_t,
 	                      const Handle&);
 
@@ -113,11 +118,11 @@ public:
 	                         const Handle&, const Handle&);
 	virtual size_t num_links(const Handle&, const Handle&,
 	                         const Handle&);
-	virtual void push_frame(const Frame&);
-	virtual void pop_frame(const Frame&);
+	virtual void push_frame(const OdoFrame&);
+	virtual void pop_frame(const OdoFrame&);
 	virtual void push_odometer(const Odometer&);
 	virtual void pop_odometer(const Odometer&);
-	virtual void solution(const Frame&);
+	virtual void solution(const OdoFrame&);
 	virtual Handle get_solutions(void);
 };
 

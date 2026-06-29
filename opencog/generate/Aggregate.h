@@ -25,7 +25,7 @@
 #include <set>
 
 #include <opencog/atomspace/AtomSpace.h>
-#include <opencog/generate/Frame.h>
+#include <opencog/generate/Odometer.h>
 #include <opencog/generate/GenerateCallback.h>
 
 namespace opencog
@@ -38,16 +38,16 @@ class Aggregate
 {
 private:
 	AtomSpace* _as;
-	AtomSpace* _scratch;
+	AtomSpacePtr _scratch;
 
 	/// Decision-maker
 	GenerateCallback* _cb;
 
 	/// Current traversal state
-	Frame _frame;
+	OdoFrame _frame;
 	Odometer _odo;
 
-	std::stack<Frame> _frame_stack;
+	std::stack<OdoFrame> _frame_stack;
 	std::stack<HandleSeq> _odo_sections;
 	void push_frame();
 	void pop_frame();

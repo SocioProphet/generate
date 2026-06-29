@@ -10,7 +10,7 @@ pathways, involving genes, proteins and other molecules, are graphical
 networks as well. So are social networks. What these all have in common
 is an underlying set of allowed (or preferred) attachments, moves,
 changes or state transitions, as well as hard and soft constraints on
-what attachements, moves are possible.
+what attachments, moves are possible.
 
 The goal of the code in this repo is to generate such networks, given
 a (weighted) collection of constraints and/or transition rules and/or
@@ -21,7 +21,7 @@ being of fundamentally different types. In between the start and end
 is a networked web of interconnected moves, transitions, constraints.
 In essence, this is as a constraint satisfaction solver which allows
 probabilistic weighting and guiding, and allows the general problem
-to be described as a collection of syntactical rules or moves (aka
+to be described as a collection of syntactical rules or moves (AKA
 rules of inference, axioms, judgments).
 
 Currently focused on natural language generation; however, the theory
@@ -29,7 +29,7 @@ is generic, and is intended for use on any deduction or induction
 problem. The image above was generated with [this example
 code](./examples/export-to-gml.scm); it shows a random network, with
 all links and nodes being of the same type, and the node arity (number
-of connections) being Zipfian-dsitributed (that's why most nodes have
+of connections) being Zipfian-distributed (that's why most nodes have
 only one connection, and only one has six connections).
 
 ## Sheaves, germs and syntax
@@ -120,19 +120,21 @@ must correspond to the words in a sentences, and the word-order must
 be preserved.
 
 ## Markov logic and Bayesian blankets
-Theorem proving (and generally, constraint-satisfaction) are known hard
-problems, and so, defacto this is what this project is aiming at. All
-the pitfalls apply, including combinatoric explosion, algorithmic
-heuristics, etc. On top of all of this, a very explicit aim is that
-each of the jigsaw pieces and connectors are weighted, so that certain
-kinds of assemblies are preferred over others. Were it not for this
-weighting, one might consider using existing constraint satisfaction
+[Theorem proving](https://en.wikipedia.org/wiki/Automated_theorem_proving)
+(and generally,
+[constraint satisfaction](https://en.wikipedia.org/wiki/Constraint_satisfaction))
+are known hard problems, and so, defacto this is what this project is
+aiming at. All the pitfalls apply, including combinatoric explosion,
+algorithmic heuristics, etc. On top of all of this, a very explicit aim
+is that each of the jigsaw pieces and connectors are weighted, so that
+certain kinds of assemblies are preferred over others. Were it not for
+this weighting, one might consider using existing constraint satisfaction
 solvers. For example, Answer-Set Programming (ASP) is a particularly
 convenient way of specifying discrete, crisp-logic constraints. More
-generally, one might even consider SAT solvers, or even Satisfiability
-Modules Theories (SMT) solvers.  Once on throws in weightings, none
-of the existing SMT solvers appear to be adequate for the job.  Thus,
-this project.
+generally, one might even consider SAT solvers, or maybe even
+[Satisfiability Modules Theories (SMT)](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories)
+solvers.  Once on throws in weightings, none of the existing SMT solvers
+appear to be adequate for the job.  Thus, this project.
 
 The goal of saying "weighting" is to avoid saying "probability". In
 reality (based on long experience) the weights do resemble
@@ -142,7 +144,7 @@ theoretical arguments that the correct weighting is the Boltzmann
 distribution, and thus, the assembled jigsaw pieces form a Markov
 blanket. Insofar as the jigsaw pieces can encode logic, the resulting
 blankets can be taken to be Markov Logic blankets. Again, the formation,
-discovery and data-mining of such blankets is a know-hard problem,
+discovery and data-mining of such blankets is a known-hard problem,
 filled to the brim with combinatoric explosions, and eminently lacking
 in general tractable algorithms. C'est la vie.
 
@@ -152,14 +154,16 @@ network be directed and acyclic. Thus, again, MLN solvers and Bayesian
 network solvers (belief networks, decision networks) are insufficient to
 tackle the problem at hand.  Although the jigsaw connectors can have a
 polarity (and thus connections can be directed), there is no presumed
-constraint that the resulting graph is acyclic.
+constraint that the resulting graph is acyclic or directed (or planar,
+or has any other long-range properties that aren't encoded in the connector
+scheme.)
 
 # Strategic Development Plan
 The above provides an very abstract description of the project, and
 emphasizes just how daunting it is. The abstract goals are not
 achievable in a handful of programmer-years; it is potentially
 some dozens if not hundreds of scientist-years of research effort.
-Thus, a narrower, righter focus is needed.
+Thus, a narrower, tighter focus is needed.
 
 ## Characterizing learning systems
 This project is motivated by a need to characterize and evaluate
@@ -238,8 +242,9 @@ used somewhat interchangeably. The differences are as follows:
   axioms of a sheaf must be satisfied.
 
 ## Germs
-With this in mind, germs are represented as OpenCog Atoms as
-follows:
+With this in mind, germs are represented as
+[OpenCog Atoms](https://wiki.opencog.org/w/Atomese)
+as follows:
 ```
    Section
        Atom "foo"
@@ -279,6 +284,9 @@ relationships: a variable that can be beta-reduced with a particular
 value.  The polarity pairs are by convention only; they are not
 mandated by the system.
 
+This representation is discussed in greater detail in the
+[Connectors and Sections](https://wiki.opencog.org/w/Connectors_and_Sections)
+wiki page.
 
 ## Implementation
 There is an inherent combinatorial explosion, which will certainly be
@@ -307,7 +315,7 @@ design choices:
 The current code implements a breadth-first aggregation algorithm.
 It provides two search modes: a deterministic explorer that will
 exhaustively generate all finite "unambiguous" graphs, and an
-random network explorer, useful for sampling from larger grammers
+random network explorer, useful for sampling from larger grammars
 that cannot be fully explored via exhaustive enumeration.  It passes
 all unit tests. See
 [opencog/generate/README](opencog/generate/) for algo details.
@@ -319,7 +327,7 @@ to might generate an infinite number of graphs.
 
 The random explorer seems to work "well enough", but is still missing
 desirable features. These will be added as the need arises.  Foremost
-are additional tunable paramaters to control the statistical
+are additional tunable parameters to control the statistical
 distribution of the generated graphs.
 
 This has not yet been tried on anything but small, toy grammars, and
@@ -328,7 +336,7 @@ for large, complex grammars.
 
 Upcoming plans are to provide constraints to generate planar graphs.
 An extension to force linear order (so as to obtain sequences, e.g.
-word sequences) is also equired.
+word sequences) is also required.
 
 Some of the missing features are listed in the github issues list.
 

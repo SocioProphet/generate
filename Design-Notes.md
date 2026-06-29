@@ -27,7 +27,7 @@ and it is grown by aggregation, until conclusion. Here "aggregation"
 means joining new puzzle-pieces to existing unconnected connectors.
 In depth-first aggregation, if the original seed has a second connector,
 it is completely ignored until all growths from the first have been
-fully explored.  This is why breadth-first aggregation is intiutively
+fully explored.  This is why breadth-first aggregation is intuitively
 more appealing: in breadth-first aggregation, all growing tips are
 explored in parallel.
 
@@ -43,7 +43,7 @@ have been added since then.
 Breadth-first aggregation is done in "parallel", with all open
 connectors being extended just one step, per time-step. Visually,
 this can be imagined as a wave or a boundary that is expanding at
-constant velocity: one attachement per connector per time step.
+constant velocity: one attachment per connector per time step.
 Its like a wave propagating outwards; all points on boundaries are
 explored simultaneously.
 
@@ -64,7 +64,7 @@ very long time before there is enough back-tracking to where those
 These last thoughts suggest that a better, more balanced sampling of
 the search space is to maintain a population of extensions grown from
 a seed, and explore each one distinctly, thus allowing "deep
-alternatives" to be fully sampled, even as getting boggged down at
+alternatives" to be fully sampled, even as getting bogged down at
 the edges of each growth.
 
 ### Pruning
@@ -92,3 +92,41 @@ different subjects).
 
 Do we need to have explicit "must-form-a-cycle" rules?  Can we do this
 statistically?
+
+
+### Random walks through possibilities
+Walk through possible connections, randomly. But rather than uniform
+weighting, we need to spread "attention" according to weights. This
+would require a redesign of the attention allocation subsystem.
+
+#### Fun demo!
+Use a small collection of words from text chat to deposit attention
+into the network. Then trace throught grammatically network crawls
+throught the net. Do this on an IRC chat channel.  (This would resemble
+the behavior of bayesian/markov language generators, but different,
+because the network is defined differently.)
+
+
+Literature
+==========
+
+Wave-function Collapse
+----------------------
+The "wave-function collapse algorithm" described by Marian, "[Infinite
+procedurally generated city with the Wave Function Collapse
+algorithm](https://marian42.de/article/wfc/)" (2019) appears to be a
+good way of assembling pieces in a fixed n-dimensional world.
+
+It divides the universe into blocks (for sentence generation, this would
+be a 1-D universe - a linear string). It selects a location in this
+grid, picking the grid-point with the lowest entropy. Naively, this is
+the slot with the fewest choices.  More formally, its the slot with the
+smallest S = -sum_i p_i log p_i where -log p_i is the "cost". A single
+probability-weighted choice is made for that slot, and then the process
+is repeated.
+
+It is not clear how to enforce additional conditions, such as
+no-links-crossing, with this algo.
+
+Code for the blocks-world algo is here:
+https://github.com/mxgmn/WaveFunctionCollapse
